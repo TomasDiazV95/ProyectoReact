@@ -1,32 +1,44 @@
-import React from "react";
+import React, {useState, useEffect} from "react"
+import ItemCount from "./ItemCount"
+import Frutos from "../data/valores";
+import ItemList from "./itemlist";
 
-const styles = {
-    container:{
-        display: "flex",
-        backgroundColor: '#282c34',
-        alignItems: "center",
-        color:"white",
-        justifyContent: "space-around"
+
+const promesa = new Promise((res, rej) => {
+    setTimeout(() => {
+      res(Frutos);
+    }, 2000);
+  });
+
+export default function ItemListContainer({value}) {
+    const [listaFrutos, setListaFrutos] = useState([]);
+    const [loading, setLoading] = useState(false);
+
+    const onAdd = () =>{    
+        alert('Gracias por la compra')
     }
-}
 
-function Prenda(props){
+    useEffect(() => {
+        setLoading(true);
+        promesa.then((response) => {
+          setLoading(false);
+          setListaFrutos(response);
+        });
+      }, []);
+
+      if (loading) {
+        return (
+          <>
+            <h1>Cargando...</h1>
+          </>
+        );
+      }
+
     return(
-        <div>
-            <h3>{props.nombre}</h3>
-            <p>Valor: {props.valor}</p>
-        </div>
-    );
+        <>
+    <p>{value}</p>
+    <ItemList Frutos={listaFrutos} />
+    <ItemCount initial={0} stock={5} onAdd={onAdd} />
+    </>
+    )
 }
-
-function ItemListContainer(){
-    return(
-        <div style={styles.container}>
-            <Prenda nombre="Polera" valor="$2500"/>
-            <Prenda nombre="Pantalon" valor="$3500"/>
-            <Prenda nombre="Buzo" valor="$2000"/>
-        </div>
-    );
-}
-
-export default ItemListContainer;

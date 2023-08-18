@@ -1,16 +1,13 @@
-import React from 'react';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import Count from './Count';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
+import React from "react";
 
 const CartWidget = () => {
-
-    return(
+    return (
         <>
-        <ShoppingCartIcon color="success" fontSize="large" />
-        <Count/>
+        <ShoppingCartIcon sx={{ fontSize: 35 }}/>
+        <p>carrito</p>
         </>
     )
-
 }
 
-export default CartWidget;
+export default CartWidget

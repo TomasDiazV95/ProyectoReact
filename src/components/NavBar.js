@@ -1,20 +1,39 @@
-import React from 'react'
-import CartWidget from './CartWidget'
+import logo from '../assets/imagenlogo1.jpg';
+import './nav.css';
+import CartWidget from './CartWidget';
+import { Link } from "react-router-dom"
+
+const NavBar = () => {
+
+    const categories = [
+        { name: "Productos", id: 0, route: "/category/productos"},
+        { name: "Nosotros", id: 1, route: "/category/nosotros"},
+        { name: "Local", id: 2, route: "/category/local"},
+        { name: "Contacto", id: 3, route: "/category/contacto"},
+    ];
+
+    return (
+        <header className='navContainer'/* style={styles.container} */>
+            <Link to="/"><img src={logo} alt=""  /></Link>
+            <h1 className='tit' >Frutos Secos</h1>
+            <nav style={styles.nav}>
+                {categories.map((category) => <Link key={category.id} to={category.route}>{category.name}</Link>)}
+            </nav>
+            <Link style={styles.cart} to="/cart">< CartWidget /></Link>
+        </header>
+    )
+}
+
 
 const styles = {
-    container:{
-        display: 1200 ? 'flex' : 'none',
-        backgroundColor: "grey",
-        justifyContent: "space-between",
-        alignItems: "center",
-        width: "100%",
-        
-    },
+
     titulo:{
-        //backgroundColor: "green",
-        display: "flex",
-        padding: '40px',
-        paddingLeft: '100px'
+        backgroundColor: "green",
+        display: "block",
+        //padding: '40px',
+        textAlign: "center",
+        alignItems: "center",
+        //paddingLeft: '1000px'
     },    
     cart:{
         //backgroundColor: "red",
@@ -23,33 +42,12 @@ const styles = {
         paddingRight: 150,
     },
     nav:{
-        //vbackgroundColor: "cyan",
+        //backgroundColor: "cyan",
         display: "flex",
         fontSize: 20,
         
     },
-    x:{
-        padding: 40,
-    }
-}
-
-function NavBar(){
-
-    return(
-        <header style={styles.container}>
-            <div>
-                <h1 style={styles.titulo}>Mi Tienda Online</h1>
-            </div>
-            <div style={styles.nav}>
-                <a style={styles.x} href="">Productos</a>
-                <a style={styles.x} href="">Ubicacion</a>
-                <a style={styles.x} href="">Politica</a>
-            </div>
-            <div style={styles.cart}>
-                <CartWidget/>
-            </div>
-        </header>
-    )
+    
 }
 
 export default NavBar;
